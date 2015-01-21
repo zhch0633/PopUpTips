@@ -1,19 +1,25 @@
 package com.example.myapplication;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 
-public class DemoActivity extends ActionBarActivity {
+public class DemoActivity extends ActionBarActivity implements View.OnClickListener {
+
+    Button testButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
+        testButton = (Button)findViewById(R.id.button);
+        testButton.setOnClickListener(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,5 +41,21 @@ public class DemoActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    //set the onclick listener and call method popUpWindow!
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button:
+                windowPopUp(v);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void windowPopUp(View v){
+        ((TextView)findViewById(R.id.textView)).setText("calling popup");
     }
 }
