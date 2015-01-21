@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clip"
+        android:id="@+id/button2"
+        android:background="@drawable/shape"
+        android:textColor="#ffffffff" />
+    <TextView
+        android:layout_width="3dp"
+        android:layout_height="fill_parent"
+        android:background="#ff606265"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="copy"
+        android:id="@+id/button3"
+        android:background="@drawable/shape"
+        android:textColor="#ffffffff" />
+    <TextView
+        android:layout_width="3dp"
+        android:layout_height="fill_parent"
+        android:background="#ff606265"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="paste"
+        android:id="@+id/button4"
+        android:background="@drawable/shape"
+        android:textColor="#ffffffff" />
+
+</LinearLayout>
