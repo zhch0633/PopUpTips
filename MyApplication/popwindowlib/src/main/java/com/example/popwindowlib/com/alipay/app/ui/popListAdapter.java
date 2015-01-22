@@ -20,10 +20,12 @@ import java.util.Map;
 public class popListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<Map<String, Object>> mData;
+    private View.OnClickListener mbtnListener;
 
-    public popListAdapter(Context context,List<Map<String, Object>> data){
+    public popListAdapter(Context context,List<Map<String, Object>> data,View.OnClickListener btnListener){
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        mbtnListener = btnListener;
     }
     @Override
     public int getCount() {
@@ -53,13 +55,8 @@ public class popListAdapter extends BaseAdapter {
         image.setBackgroundResource((Integer) mData.get(position).get("img"));
         title.setText((String) mData.get(position).get("title"));
         info.setText((String) mData.get(position).get("info"));
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showInfo();
-            }
-        });
+        btn.setOnClickListener(this.mbtnListener);
+        btn.setText((String) mData.get(position).get("title"));
         return convertView;
     }
     public void showInfo(){

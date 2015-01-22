@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,13 +34,13 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         testButton = (Button)findViewById(R.id.button);
         testButton.setOnClickListener(this);
 
-        popListAdapter adapter = new popListAdapter(this, getData());
+        popListAdapter adapter = new popListAdapter(this, getData(),this);
         View popupView = getLayoutInflater().inflate(R.layout.popup_window, null);
         ListView newView = (ListView)popupView.findViewById(R.id.dynamicList);
         LinearLayout lay = (LinearLayout)popupView.findViewById(R.id.linearLay);
         newView.setAdapter(adapter);
         //for the popupWindow and its buttons
-        mPopupWindow = new PopupWindow(popupView, AbsoluteLayout.LayoutParams.WRAP_CONTENT, AbsoluteLayout.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow = new PopupWindow(popupView, 900, 600, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
@@ -78,6 +77,7 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
                 windowPopUp(v);
                 break;
             default:
+                ((TextView)findViewById(R.id.textView)).setText(((Button)v).getText());
                 break;
         }
     }
