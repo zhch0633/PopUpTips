@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class DemoActivity extends ActionBarActivity implements View.OnClickListener {
@@ -27,10 +30,12 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
 
         View popupView = getLayoutInflater().inflate(R.layout.popup_window, null);
 
+        //for the popupWindow and its buttons
         mPopupWindow = new PopupWindow(popupView, AbsoluteLayout.LayoutParams.WRAP_CONTENT, AbsoluteLayout.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+        ArrayList<Button> popUpButtonList = new ArrayList<>();
     }
 
     @Override
@@ -69,6 +74,17 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
 
     public void windowPopUp(View v){
         ((TextView)findViewById(R.id.textView)).setText("calling popup");
-        mPopupWindow.showAsDropDown(v);
+        //offInOixels for adjust popup to the middle
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        View popContent = mPopupWindow.getContentView();
+        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        popContent.measure(w, h);
+        //use getMeasuredHeight to get the heighe before show
+        int height =popContent.getMeasuredHeight();
+        int width =popContent.getMeasuredWidth();
+
+        mPopupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0]-width/2+v.getWidth()/2, location[1]-height/2-v.getHeight()/2);
     }
 }

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="clip"
         android:id="@+id/button2"
-        android:background="@drawable/shape"
+        android:background="@drawable/button_selector"
         android:textColor="#ffffffff" />
     <TextView
         android:layout_width="3dp"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="copy"
         android:id="@+id/button3"
-        android:background="@drawable/shape"
+        android:background="@drawable/button_selector"
         android:textColor="#ffffffff" />
     <TextView
         android:layout_width="3dp"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="paste"
         android:id="@+id/button4"
-        android:background="@drawable/shape"
+        android:background="@drawable/button_selector"
         android:textColor="#ffffffff" />
 
 </LinearLayout>
