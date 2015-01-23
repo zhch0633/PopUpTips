@@ -4,10 +4,15 @@
     android:layout_height="wrap_content"
     android:id = "@+id/linearLay"
     android:background="@drawable/shape">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/dragpic"
+        android:id = "@+id/dragacher"
+        />
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dynamicList">
         </ListView>
-
 </LinearLayout>

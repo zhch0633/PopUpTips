@@ -21,11 +21,16 @@ public class popListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<Map<String, Object>> mData;
     private View.OnClickListener mbtnListener;
+    private View.OnTouchListener mdragListener;
 
     public popListAdapter(Context context,List<Map<String, Object>> data,View.OnClickListener btnListener){
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         mbtnListener = btnListener;
+    }
+
+    public void setDragListener(View.OnTouchListener list){
+        mdragListener = list;
     }
     @Override
     public int getCount() {
@@ -53,6 +58,8 @@ public class popListAdapter extends BaseAdapter {
         Button btn = (Button) convertView.findViewById(R.id.view_btn);
 
         image.setBackgroundResource((Integer) mData.get(position).get("img"));
+        //drag form image
+        //image.setOnTouchListener(this.mdragListener);
         title.setText((String) mData.get(position).get("title"));
         info.setText((String) mData.get(position).get("info"));
         btn.setOnClickListener(this.mbtnListener);

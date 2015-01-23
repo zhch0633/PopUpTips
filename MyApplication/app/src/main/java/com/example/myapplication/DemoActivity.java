@@ -14,9 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.popwindowlib.com.alipay.app.ui.PopList;
 import com.example.popwindowlib.com.alipay.app.ui.popListAdapter;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.Map;
 public class DemoActivity extends ActionBarActivity implements View.OnClickListener {
 
     private Button testButton;
-    private PopupWindow mPopupWindow;
+    private PopList mPopupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +43,13 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         LinearLayout lay = (LinearLayout) popupView.findViewById(R.id.linearLay);
         newView.setAdapter(adapter);
         //for the popupWindow and its buttons
-        mPopupWindow = new PopupWindow(popupView, 900, 600, true);
+        mPopupWindow = new PopList(popupView, 300, 250, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+        mPopupWindow.setDragable(true);
         //ArrayList<Button> popUpButtonList = new ArrayList<>();
+        adapter.setDragListener(mPopupWindow);
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
         final int screenWidth = dm.widthPixels;
