@@ -11,11 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.popwindowlib.com.alipay.app.ui.DensityUtil;
 import com.example.popwindowlib.com.alipay.app.ui.PopList;
 import com.example.popwindowlib.com.alipay.app.ui.popListAdapter;
 
@@ -43,7 +45,7 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         LinearLayout lay = (LinearLayout) popupView.findViewById(R.id.linearLay);
         newView.setAdapter(adapter);
         //for the popupWindow and its buttons
-        mPopupWindow = new PopList(popupView, 300, 250, true);
+        mPopupWindow = new PopList(popupView, AbsoluteLayout.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(this,200), true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
