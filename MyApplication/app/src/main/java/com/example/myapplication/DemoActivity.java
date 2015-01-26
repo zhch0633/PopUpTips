@@ -37,8 +37,10 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         testButton = (Button) findViewById(R.id.button);
         testButton.setOnClickListener(this);
 
+
         popListAdapter adapter = new popListAdapter(this, getData(), this);
         View popupView = getLayoutInflater().inflate(R.layout.popup_window, null);
+
         //ListView newView = (ListView) popupView.findViewById(R.id.dynamicList);
         //LinearLayout lay = (LinearLayout) popupView.findViewById(R.id.linearLay);
         //newView.setAdapter(adapter);

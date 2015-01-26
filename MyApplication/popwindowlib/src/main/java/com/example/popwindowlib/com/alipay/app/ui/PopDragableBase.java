@@ -33,11 +33,15 @@ public class PopDragableBase extends PopupWindow implements View.OnTouchListener
         public void setDragable(boolean drag){
             if(drag == true) {
                 isDragalbe = true;
-                getContentView().findViewById(R.id.dragacher).setOnTouchListener(this);
+                if( getContentView().findViewById(R.id.dragacher)!=null) {
+                    getContentView().findViewById(R.id.dragacher).setOnTouchListener(this);
+                }
             }
             else {
                 isDragalbe = false;
-                getContentView().findViewById(R.id.dragacher).setOnTouchListener(null);
+                if( getContentView().findViewById(R.id.dragacher)!=null) {
+                    getContentView().findViewById(R.id.dragacher).setOnTouchListener(null);
+                }
             }
             return;
         }
