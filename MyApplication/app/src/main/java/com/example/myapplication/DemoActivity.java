@@ -13,8 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.popwindowlib.com.alipay.app.ui.DensityUtil;
@@ -41,15 +39,16 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
 
         popListAdapter adapter = new popListAdapter(this, getData(), this);
         View popupView = getLayoutInflater().inflate(R.layout.popup_window, null);
-        ListView newView = (ListView) popupView.findViewById(R.id.dynamicList);
-        LinearLayout lay = (LinearLayout) popupView.findViewById(R.id.linearLay);
-        newView.setAdapter(adapter);
+        //ListView newView = (ListView) popupView.findViewById(R.id.dynamicList);
+        //LinearLayout lay = (LinearLayout) popupView.findViewById(R.id.linearLay);
+        //newView.setAdapter(adapter);
         //for the popupWindow and its buttons
         mPopupWindow = new PopList(popupView, AbsoluteLayout.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(this,200), true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
         mPopupWindow.setDragable(true);
+        mPopupWindow.getList().setAdapter(adapter);
         //ArrayList<Button> popUpButtonList = new ArrayList<>();
         adapter.setDragListener(mPopupWindow);
 

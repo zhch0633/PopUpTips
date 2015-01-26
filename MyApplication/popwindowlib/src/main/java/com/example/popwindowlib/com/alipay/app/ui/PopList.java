@@ -1,79 +1,24 @@
 package com.example.popwindowlib.com.alipay.app.ui;
 
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.PopupWindow;
+import android.widget.ListView;
 
 import com.example.popwindowlib.R;
 
 /**
  * Created by zhch0633 on 2015/1/22.
  */
-public class PopList extends PopupWindow implements View.OnTouchListener{
-    private View popupView;
-    private boolean isDragalbe = false;
-    private int lastX;
-    private int lastY;
-    private int mScreenX,mScreenY,dx,dy;
+public class PopList extends PopDragableBase implements View.OnTouchListener{
+    private ListView list;
 
     public PopList(View view, int w,int h,boolean focusable){
         super(view,w,h,focusable);
         popupView = view;
+        list =  (ListView) popupView.findViewById(R.id.dynamicList);
     }
 
-    public void initiate(){
-        //use this to realize drag&drop popupwindow
-       //http://blog.csdn.net/wangjinyu501/article/details/24697229 refer this to get more information about this realization
-    }
-
-    //use this to realize drag&drop popupwindow
-    //http://blog.csdn.net/wangjinyu501/article/details/24697229 refer this to get more information about this realization
-    //chen.zhang 2015.1.23
-    public void setDragable(boolean drag){
-        if(drag == true) {
-            isDragalbe = true;
-            getContentView().findViewById(R.id.dragacher).setOnTouchListener(this);
-        }
-        else {
-            isDragalbe = false;
-            getContentView().findViewById(R.id.dragacher).setOnTouchListener(null);
-        }
-        return;
-    }
-
-    public boolean getDragable(){
-        return isDragalbe;
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        //touch form view and drag the window
-        int action = event.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                int[] location = new int[2];
-                getContentView().getLocationOnScreen(location);
-                mScreenX = location[0];
-                mScreenY = location[1];
-                lastX = (int) event.getRawX();
-                lastY = (int) event.getRawY();
-                Log.w("lastX:",String.valueOf(dx));
-                Log.w("lastY:",String.valueOf(dy));
-                break;
-            case MotionEvent.ACTION_UP:
-                mScreenX = dx;
-                mScreenY = dy;
-                Log.i("dx:",String.valueOf(dx));
-                Log.i("dy:",String.valueOf(dy));
-                break;
-            case MotionEvent.ACTION_MOVE:
-                dx = (int) event.getRawX() - lastX + mScreenX;
-                dy = (int) event.getRawY() - lastY + mScreenY;
-                update(dx, dy, -1, -1);
-                break;
-        }
-        return true;
+    public ListView getList(){
+        return list;
     }
 }
 
