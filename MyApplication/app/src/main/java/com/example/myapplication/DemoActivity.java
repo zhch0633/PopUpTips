@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.popwindowlib.com.alipay.app.ui.DensityUtil;
@@ -26,12 +27,13 @@ import java.util.List;
 import java.util.Map;
 
 
-public class DemoActivity extends ActionBarActivity implements View.OnClickListener {
+public class DemoActivity extends ActionBarActivity implements View.OnClickListener ,PopupWindow.OnDismissListener {
 
     private Button testButton;
     private Button showRoundBtn;
     private PopList mPopupWindow;
     private PopFloatButton mPopbtn;
+    private int[] btnLocation = new int[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,15 +155,19 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
                 break;
             case R.id.dragableBtnView:
                 windowPopUp(this.findViewById(R.id.button2));
-                int[] location = new int[2];
-                mPopbtn.getContentView().getLocationOnScreen(location);
-                mPopupWindow.setfollow(location[0],location[1]);
+               //int[] btnLocation = new int[2];
+                mPopbtn.getContentView().getLocationOnScreen(btnLocation);
+                mPopupWindow.setfollow(btnLocation[0], btnLocation[1]);
+                mPopbtn.dismiss();
+                mPopupWindow.setOnDismissListener(this);
                 break;
             default:
                 ((TextView) findViewById(R.id.textView)).setText(((Button) v).getText());
                 break;
         }
     }
+
+
 
     public void btnPopUp(View v){
         ((TextView) findViewById(R.id.textView)).setText("calling round btn");
@@ -213,5 +219,13 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         list.add(map);
 
         return list;
+    }
+
+    @Override
+    public void onDismiss() {
+        btnPopUp(findViewById(R.id.button2));
+        mPopbtn.setfollow(btnLocation[0], btnLocation[1]);
+        mPopbtn.getContentView().setClickable(true);
+        mPopbtn.getContentView().setOnClickListener(this);
     }
 }

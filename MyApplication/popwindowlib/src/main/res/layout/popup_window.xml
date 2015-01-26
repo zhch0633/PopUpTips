@@ -7,7 +7,7 @@
     <com.example.popwindowlib.com.alipay.app.ui.RoundImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/dragpic"
+        android:src="@drawable/dragpic_2"
         android:id = "@+id/dragacher"
         />
     <ListView

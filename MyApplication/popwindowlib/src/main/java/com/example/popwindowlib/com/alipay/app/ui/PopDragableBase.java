@@ -28,6 +28,7 @@ public class PopDragableBase extends PopupWindow implements View.OnTouchListener
         public PopDragableBase(View view, int w,int h,boolean focusable){
             super(view,w,h,focusable);
             popupView = view;
+            setAnimationStyle(R.style.popwin_anim_style);
         }
 
         public void initiate(){
