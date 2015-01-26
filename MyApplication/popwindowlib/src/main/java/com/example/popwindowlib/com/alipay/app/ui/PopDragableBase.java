@@ -1,5 +1,7 @@
 package com.example.popwindowlib.com.alipay.app.ui;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,12 +12,18 @@ import com.example.popwindowlib.R;
 /**
  * Created by zhch0633 on 2015/1/26.
  */
-public class PopDragableBase extends PopupWindow implements View.OnTouchListener{
+public class PopDragableBase extends PopupWindow implements View.OnTouchListener ,PopFollower{
     protected View popupView;
     protected boolean isDragalbe = false;
     protected int lastX;
     protected int lastY;
     protected int mScreenX,mScreenY,dx,dy;
+
+    private  int beforeDragX;
+    private  int afterDragX;
+
+    private  int beforeDragY;
+    private  int afterDragY;
 
         public PopDragableBase(View view, int w,int h,boolean focusable){
             super(view,w,h,focusable);
@@ -50,6 +58,7 @@ public class PopDragableBase extends PopupWindow implements View.OnTouchListener
             return isDragalbe;
         }
 
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             //touch form view and drag the window
@@ -62,21 +71,41 @@ public class PopDragableBase extends PopupWindow implements View.OnTouchListener
                     mScreenY = location[1];
                     lastX = (int) event.getRawX();
                     lastY = (int) event.getRawY();
-                    Log.w("lastX:", String.valueOf(dx));
-                    Log.w("lastY:",String.valueOf(dy));
+                    beforeDragX = mScreenX;
+                    beforeDragY = mScreenY;
                     break;
                 case MotionEvent.ACTION_UP:
                     mScreenX = dx;
                     mScreenY = dy;
-                    Log.i("dx:",String.valueOf(dx));
-                    Log.i("dy:",String.valueOf(dy));
+                    //Log.i("dx:",String.valueOf(dx));
+                    //Log.i("dy:",String.valueOf(dy));
+                    Log.w("beforeDragX:", String.valueOf(beforeDragX));
+                    Log.w("beforeDragY:",String.valueOf(beforeDragY));
+                    Log.i("mScreenX:",String.valueOf(mScreenX));
+                    Log.i("mScreenY:",String.valueOf(mScreenY));
+
+                    //dummy click event
+                    if(mScreenX == beforeDragX && mScreenY ==beforeDragY)
+                    {
+                        Log.v("clicked","dummy click");
+                        popupView.callOnClick();
+                    }
+                    else{
+                        Log.i("action", String.valueOf(action));
+                    }
                     break;
                 case MotionEvent.ACTION_MOVE:
                     dx = (int) event.getRawX() - lastX + mScreenX;
                     dy = (int) event.getRawY() - lastY + mScreenY;
+
                     update(dx, dy, -1, -1);
                     break;
             }
             return true;
         }
+
+    @Override
+    public void setfollow(int x, int y) {
+        update(x, y, -1, -1);
+    }
 }

@@ -148,6 +148,14 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
                 break;
             case R.id.button2:
                 btnPopUp(v);
+                mPopbtn.getContentView().setClickable(true);
+                mPopbtn.getContentView().setOnClickListener(this);
+                break;
+            case R.id.dragableBtnView:
+                windowPopUp(this.findViewById(R.id.button2));
+                int[] location = new int[2];
+                mPopbtn.getContentView().getLocationOnScreen(location);
+                mPopupWindow.setfollow(location[0],location[1]);
                 break;
             default:
                 ((TextView) findViewById(R.id.textView)).setText(((Button) v).getText());
