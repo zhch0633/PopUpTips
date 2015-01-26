@@ -16,5 +16,11 @@
         android:id="@+id/button"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+    <com.example.popwindowlib.com.alipay.app.ui.DragableHub
+        android:id="@+id/roundImageMain"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src = "@drawable/dragpic"
+        />
 
 </RelativeLayout>

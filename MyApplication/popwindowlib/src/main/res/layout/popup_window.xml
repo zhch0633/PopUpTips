@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     android:id = "@+id/linearLay"
     android:background="@drawable/shape">
-    <com.example.popwindowlib.com.alipay.app.ui.RoundImageView
+    <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/dragpic"
+        android:background="@drawable/dragpic"
         android:id = "@+id/dragacher"
         />
     <ListView
