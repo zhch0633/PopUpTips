@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.popwindowlib.com.alipay.app.ui.DensityUtil;
+import com.example.popwindowlib.com.alipay.app.ui.PopFloatButton;
 import com.example.popwindowlib.com.alipay.app.ui.PopList;
 import com.example.popwindowlib.com.alipay.app.ui.popListAdapter;
 
@@ -28,15 +29,18 @@ import java.util.Map;
 public class DemoActivity extends ActionBarActivity implements View.OnClickListener {
 
     private Button testButton;
+    private Button showRoundBtn;
     private PopList mPopupWindow;
+    private PopFloatButton mPopbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
         testButton = (Button) findViewById(R.id.button);
+        showRoundBtn =(Button)findViewById(R.id.button2);
         testButton.setOnClickListener(this);
-
+        showRoundBtn.setOnClickListener(this);
 
         popListAdapter adapter = new popListAdapter(this, getData(), this);
         View popupView = getLayoutInflater().inflate(R.layout.popup_window, null);
@@ -142,12 +146,27 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.button:
                 windowPopUp(v);
                 break;
+            case R.id.button2:
+                btnPopUp(v);
+                break;
             default:
                 ((TextView) findViewById(R.id.textView)).setText(((Button) v).getText());
                 break;
         }
     }
 
+    public void btnPopUp(View v){
+        ((TextView) findViewById(R.id.textView)).setText("calling round btn");
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        View popContent = mPopupWindow.getContentView();
+        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        popContent.measure(w, h);
+
+        mPopbtn = new PopFloatButton(this);
+        mPopbtn.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] + v.getHeight());
+    }
     public void windowPopUp(View v) {
         ((TextView) findViewById(R.id.textView)).setText("calling popup");
         //offInOixels for adjust popup to the middle
