@@ -1,8 +1,6 @@
 package com.example.myapplication;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,17 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.popwindowlib.com.alipay.app.ui.DensityUtil;
-import com.example.popwindowlib.com.alipay.app.ui.DragableHub;
-import com.example.popwindowlib.com.alipay.app.ui.FloatApplication;
 import com.example.popwindowlib.com.alipay.app.ui.PopList;
 import com.example.popwindowlib.com.alipay.app.ui.popListAdapter;
 
@@ -38,30 +31,12 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
     private Button testButton;
     private PopList mPopupWindow;
 
-    private WindowManager windowManager = null;
-    private WindowManager.LayoutParams windowManagerParams = null;
-    private DragableHub floatView = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
         testButton = (Button) findViewById(R.id.button);
-        floatView = (DragableHub)findViewById(R.id.roundImageMain);
-        floatView.setOnClickListener(this);
-
-        windowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        windowManagerParams = ((FloatApplication) getApplication()).getWindowParams();
-        windowManagerParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-        windowManagerParams.format = PixelFormat.RGBA_8888;
-        windowManagerParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        windowManagerParams.gravity = Gravity.LEFT | Gravity.TOP;
-        windowManagerParams.x = 0;
-        windowManagerParams.y = 0;
-        windowManagerParams.width = AbsoluteLayout.LayoutParams.WRAP_CONTENT;
-        windowManagerParams.height = AbsoluteLayout.LayoutParams.WRAP_CONTENT;
-        windowManager.addView(floatView, windowManagerParams);
+        testButton.setOnClickListener(this);
 
         popListAdapter adapter = new popListAdapter(this, getData(), this);
         View popupView = getLayoutInflater().inflate(R.layout.popup_window, null);
@@ -69,8 +44,8 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         LinearLayout lay = (LinearLayout) popupView.findViewById(R.id.linearLay);
         newView.setAdapter(adapter);
         //for the popupWindow and its buttons
-        //mPopupWindow = new PopList(popupView, DensityUtil.dip2px(this, 50), DensityUtil.dip2px(this, 50), true);
-        mPopupWindow = new PopList(popupView, AbsoluteLayout.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(this, 200), true);
+        mPopupWindow = new PopList(popupView, DensityUtil.dip2px(this, 50), DensityUtil.dip2px(this, 50), true);
+        //mPopupWindow = new PopList(popupView, AbsoluteLayout.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(this, 200), true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
@@ -165,9 +140,6 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button:
                 windowPopUp(v);
-                break;
-            case R.id.roundImageMain:
-                Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 ((TextView) findViewById(R.id.textView)).setText(((Button) v).getText());
