@@ -1,6 +1,9 @@
 package com.example.popwindowlib.com.alipay.app.ui;
 
 import android.annotation.TargetApi;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -55,13 +58,19 @@ public class PopDragableBase extends PopupWindow implements View.OnTouchListener
             return;
         }
 
+       //set the background of this popupwindow
+        public void setContentBackground(Drawable drawable){
+            this.setBackgroundDrawable(new BitmapDrawable(popupView.getResources(), (Bitmap) null));
+            popupView.setBackgroundDrawable(drawable);
+        }
+
         public boolean getDragable(){
             return isDragalbe;
         }
 
         @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouch(View v, MotionEvent event) {
             //touch form view and drag the window
             int action = event.getAction();
             switch (action) {
@@ -76,14 +85,21 @@ public class PopDragableBase extends PopupWindow implements View.OnTouchListener
                     beforeDragY = mScreenY;
                     break;
                 case MotionEvent.ACTION_UP:
+                    dx = (int) event.getRawX() - lastX + mScreenX;
+                    dy = (int) event.getRawY() - lastY + mScreenY;
+
+                    //update(dx, dy, -1, -1);
+
                     mScreenX = dx;
                     mScreenY = dy;
                     //Log.i("dx:",String.valueOf(dx));
                     //Log.i("dy:",String.valueOf(dy));
-                    Log.w("beforeDragX:", String.valueOf(beforeDragX));
-                    Log.w("beforeDragY:",String.valueOf(beforeDragY));
-                    Log.i("mScreenX:",String.valueOf(mScreenX));
-                    Log.i("mScreenY:",String.valueOf(mScreenY));
+                    //Log.w("beforeDragX:", String.valueOf(beforeDragX));
+                    //Log.w("beforeDragY:",String.valueOf(beforeDragY));
+                   // Log.i("mScreenX:",String.valueOf(mScreenX));
+                    //Log.i("mScreenY:",String.valueOf(mScreenY));
+                   // Log.d("LastX:",String.valueOf(lastX));
+                   // Log.d("LastY",String.valueOf(lastY));
 
                     //dummy click event
                     if(mScreenX == beforeDragX && mScreenY ==beforeDragY)
@@ -105,7 +121,7 @@ public class PopDragableBase extends PopupWindow implements View.OnTouchListener
             return true;
         }
 
-    @Override
+         @Override
     public void setfollow(int x, int y) {
         update(x, y, -1, -1);
     }

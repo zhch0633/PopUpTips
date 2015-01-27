@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
@@ -11,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -51,10 +52,25 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         //LinearLayout lay = (LinearLayout) popupView.findViewById(R.id.linearLay);
         //newView.setAdapter(adapter);
         //for the popupWindow and its buttons
-        mPopupWindow = new PopList(popupView, AbsoluteLayout.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(this,200), true);
+        //mPopupWindow = new PopList(popupView, AbsoluteLayout.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(this,200), true);
+
+        //to ensure the background meets the popupWindow
+        mPopupWindow = new PopList(popupView, DensityUtil.dip2px(this, 250), DensityUtil.dip2px(this,250)*getResources().getDrawable(R.drawable.background).getIntrinsicHeight()/getResources().getDrawable(R.drawable.background).getIntrinsicWidth(),true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
-        mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+        //mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
+        //mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
+        //lay.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
+
+        //ust this to set backround in one method
+        mPopupWindow.setContentBackground(getResources().getDrawable(R.drawable.background));
+        //popupView.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
+
+        //Drawable bg =  lay.getBackground();
+        //BitmapDrawable bd = new BitmapDrawable(drawableToBitmap(bg));
+        //bd.setTileModeXY(Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        //lay.setBackgroundDrawable(bd);
+
         mPopupWindow.setDragable(true);
         mPopupWindow.getList().setAdapter(adapter);
         //ArrayList<Button> popUpButtonList = new ArrayList<>();
@@ -117,6 +133,17 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
                                              return false;
                                          }
                                      });
+    }
+
+    private Bitmap drawableToBitmap(Drawable d) {
+        Bitmap bitmap = Bitmap.createBitmap(d.getIntrinsicWidth(), d
+                        .getIntrinsicHeight(),
+                d.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                        : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+        d.draw(canvas);
+        return bitmap;
     }
 
     @Override
@@ -190,7 +217,7 @@ public class DemoActivity extends ActionBarActivity implements View.OnClickListe
         int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         popContent.measure(w, h);
-        //use getMeasuredHeight to get the heighe before show
+        //use getMeasuredHeight to get the height before show
         //int height =popContent.getMeasuredHeight()*(((ListView)popContent.findViewById(R.id.dynamicList)).getAdapter().getCount()+1);
         //int width =popContent.getMeasuredWidth();
 
